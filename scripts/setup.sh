@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #
 #  Copyright (C) 2025 Volt Active Data Inc.
@@ -10,16 +10,30 @@
 
 . $HOME/.profile
 
+#VENV=`which voltenv`
+#. ${VENV} 
+. /home/ubuntu/voltdb-ent-14.2.0-x86_64/bin/voltenv
+APPNAME="tpcc"
+
 cd
-mkdir logs 2> /dev/null
-cd voltdb-charglt/ddl
 
-sqlcmd --servers=vdb1 < create_db.sql
+if 
+	[ ! -d logs ]
+then
+	mkdir logs
+fi
 
-#cd ../scripts
-#$HOME/bin/reload_dashboards.sh ChargeLt.json
+cd volt-tpcc-sandbox
+cd tpcc
 
-#java  ${JVMOPTS}  -jar $HOME/bin/addtodeploymentdotxml.jar `cat $HOME/.vdbhostnames`  deployment $HOME/voltdb-charglt/scripts/export_and_import.xml
+# compile java source
+javac -classpath $APPCLASSPATH src/com/procedures/*.java client/com/*.java
+# build procedure and client jars
+jar cf $APPNAME-procs.jar -C client com/Constants.class -C src com/procedures
+jar cf $APPNAME-client.jar -C client com
+# remove compiled .class files
+rm -rf src/com/procedures/*.class client/com/*.class
 
-#cd ../jars
-#java ${JVMOPTS} -jar CreateChargingDemoData.jar `cat $HOME/.vdbhostnames`  $USERCOUNT 30 100000
+sqlcmd --servers=vdb1 < ddl.sql
+
+exit 0
