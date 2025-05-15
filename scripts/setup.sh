@@ -10,4 +10,4 @@
 
 . $HOME/.profile
 
-sudo bash /home/ubuntu/volt-tpcc-sandbox/scripts/setup.bash
+bash /home/ubuntu/volt-tpcc-sandbox/scripts/setup.bash

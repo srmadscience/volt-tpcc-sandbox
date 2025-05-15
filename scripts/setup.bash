@@ -8,14 +8,12 @@
 #  https://opensource.org/licenses/MIT.
 # 
 
-. $HOME/.profile
+cd /home/ubuntu
+. ./.profile
 
-#VENV=`which voltenv`
-#. ${VENV} 
 . /home/ubuntu/voltdb-ent-14.2.0-x86_64/bin/voltenv
 APPNAME="tpcc"
 
-cd
 
 if 
 	[ ! -d logs ]
