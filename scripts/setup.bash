@@ -25,10 +25,10 @@ cd volt-tpcc-sandbox
 cd tpcc
 
 # compile java source
-javac -classpath $APPCLASSPATH src/com/procedures/*.java client/com/*.java
+javac -classpath $APPCLASSPATH src/com/procedures/*.java client/com/*.java client/org/voltdb/voltutil/stats/*.java
 # build procedure and client jars
 jar cf $APPNAME-procs.jar -C client com/Constants.class -C src com/procedures
-jar cf $APPNAME-client.jar -C client com
+jar cf $APPNAME-client.jar -C client com -C client org
 # remove compiled .class files
 rm -rf src/com/procedures/*.class client/com/*.class
 
