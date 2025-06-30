@@ -11,7 +11,8 @@
 cd /home/ubuntu
 . ./.profile
 
-. /home/ubuntu/voltdb-ent-14.2.0-x86_64/bin/voltenv
+VENV=`which voltenv`
+. ${VENV}
 APPNAME="tpcc"
 
 
